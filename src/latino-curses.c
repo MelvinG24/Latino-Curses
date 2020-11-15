@@ -35,7 +35,11 @@
  *                                                                            *
  *  Curses API <https://invisible-island.net/ncurses/man/ncurses.3x.html>     *
  *****************************************************************************/
-#include <curses.h>
+#if (defined __WIN32__) || (defined _WIN32)
+    #include "../includes/curses.h"
+#else
+    #include <curses.h>
+#endif
 #include <latino.h>
 
 #define LATINO_LIB
@@ -492,6 +496,10 @@ static const lat_CReg libcurses[] = {
 
 
 //****** INVOCACION DE LIBRERIA
+// LATINO_API void latC_abrir_liblatino_curses(lat_mv *mv) {
+//     latC_abrir_liblatino(mv, LIB_CURSES_NAME, libcurses);
+// }
+
 LATINO_API void latC_abrir_liblatino_curses(lat_mv *mv) {
-    latC_abrir_liblatino(mv, LIB_CURSES_NAME, libcurses);
+	latC_abrir_liblatino(mv, LIB_CURSES_NAME, libcurses);
 }

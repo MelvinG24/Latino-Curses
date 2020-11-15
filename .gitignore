@@ -23,7 +23,6 @@ test/
 *.deb
 *.exe
 *.msi
-*.DS_Store
 Makefile
 CMakeCache.txt
 CPackConfig.cmake
@@ -36,6 +35,7 @@ prueba.txt
 history.txt
 .history
 .lat_historial
+.DS_Store
 compile_commands.json
 compiling_error.txt
 <scratch>

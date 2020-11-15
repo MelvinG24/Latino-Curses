@@ -58,7 +58,8 @@
 /*
  * Definitions to facilitate DLL's.
  */
-#include <ncursesw/ncurses_dll.h>
+#include <ncurses_dll.h>
+#include <ncurses_dll.h>
 
 #if 1
 #include <stdint.h>
@@ -835,7 +836,7 @@ extern NCURSES_EXPORT(int) wtouchln (WINDOW *,int,int,int);		/* implemented */
 extern NCURSES_EXPORT(int) wvline (WINDOW *,chtype,int);		/* implemented */
 
 /*
- * These are also declared in <ncursesw/term.h>:
+ * These are also declared in <term.h>:
  */
 extern NCURSES_EXPORT(int) tigetflag (const char *);			/* implemented */
 extern NCURSES_EXPORT(int) tigetnum (const char *);			/* implemented */
@@ -2099,7 +2100,7 @@ extern NCURSES_EXPORT(const char *) _nc_visbuf (const char *);
 
 extern NCURSES_EXPORT(void) exit_curses (int) GCC_NORETURN;
 
-#include <ncursesw/unctrl.h>
+#include <unctrl.h>
 
 #ifdef __cplusplus
 

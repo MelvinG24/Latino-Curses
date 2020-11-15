@@ -52,7 +52,7 @@
 extern "C" {
 #endif
 
-#include <ncursesw/curses.h>
+#include <curses.h>
 
 #undef unctrl
 NCURSES_EXPORT(NCURSES_CONST char *) unctrl (chtype);
