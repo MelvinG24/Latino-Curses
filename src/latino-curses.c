@@ -325,37 +325,60 @@ static void cur_movervent(lat_mv *mv){
 //CURS_OVERLAY
 //CURS_PRINTW
 static void cur_imprimir(lat_mv *mv){
-	lat_objeto *cadena = latC_desapilar(mv);
-	char *tmpdato = latC_astring(mv, cadena);
-	printw("%s",tmpdato);
+	// lat_objeto *cadena = latC_desapilar(mv);
+	// char *tmpdato = latC_astring(mv, cadena);
+	// printw("%s",tmpdato);
+	lat_objeto *o = latC_desapilar(mv);
+	int cant = (int)latC_checar_numerico(mv, o);
+	if (cant == 1) {
+		char *tmptxt = latC_astring(mv, latC_desapilar(mv));
+		printw("%s", tmptxt);
+	} else if (cant == 2) {
+		char *tmptxt = latC_astring(mv, latC_desapilar(mv));
+		WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, latC_desapilar(mv));
+		wprintw(ventana, "%s", tmptxt);
+	} else if (cant == 3) {
+		char *tmptxt = latC_astring(mv, latC_desapilar(mv));
+		int x = latC_checar_numerico(mv, latC_desapilar(mv));
+		int y = latC_checar_numerico(mv, latC_desapilar(mv));
+		mvprintw(y, x, "%s", tmptxt);
+	} else if (cant == 4) {
+		char *tmptxt = latC_astring(mv, latC_desapilar(mv));
+		int x = latC_checar_numerico(mv, latC_desapilar(mv));
+		int y = latC_checar_numerico(mv, latC_desapilar(mv));
+		WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, latC_desapilar(mv));
+		mvwprintw(ventana, y, x, "%s", tmptxt);
+	} else {
+		latC_error(mv, "Numero invalido de argumentos");
+	}
 }
-static void cur_ventimprimir(lat_mv *mv){
-	lat_objeto *cdn = latC_desapilar(mv);
-	lat_objeto *vent = latC_desapilar(mv);
-	char *cadena = latC_checar_cadena(mv, cdn);
-	WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, vent);
-	wprintw(ventana, "%s", cadena);
-}
-static void cur_mvimprimir(lat_mv *mv){
-	lat_objeto *cdn = latC_desapilar(mv);
-	lat_objeto *xx = latC_desapilar(mv);
-	lat_objeto *yy = latC_desapilar(mv);
-	char *cadena = latC_astring(mv, cdn);
-	int x = latC_checar_numerico(mv, xx);
-	int y = latC_checar_numerico(mv, yy);
-	mvprintw(y, x, "%s", cadena);
-}
-static void cur_mvventimprimir(lat_mv *mv){
-	lat_objeto *cdn = latC_desapilar(mv);
-	lat_objeto *xx = latC_desapilar(mv);
-	lat_objeto *yy = latC_desapilar(mv);
-	lat_objeto *vent = latC_desapilar(mv);
-	char *cadena = latC_checar_cadena(mv, cdn);
-	int x = latC_checar_numerico(mv, xx);
-	int y = latC_checar_numerico(mv, yy);
-	WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, vent);
-	mvwprintw(ventana, y, x, "%s", cadena);
-}
+// static void cur_ventimprimir(lat_mv *mv){
+// 	lat_objeto *cdn = latC_desapilar(mv);
+// 	lat_objeto *vent = latC_desapilar(mv);
+// 	char *cadena = latC_checar_cadena(mv, cdn);
+// 	WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, vent);
+// 	wprintw(ventana, "%s", cadena);
+// }
+// static void cur_mvimprimir(lat_mv *mv){
+// 	lat_objeto *cdn = latC_desapilar(mv);
+// 	lat_objeto *xx = latC_desapilar(mv);
+// 	lat_objeto *yy = latC_desapilar(mv);
+// 	char *cadena = latC_astring(mv, cdn);
+// 	int x = latC_checar_numerico(mv, xx);
+// 	int y = latC_checar_numerico(mv, yy);
+// 	mvprintw(y, x, "%s", cadena);
+// }
+// static void cur_mvventimprimir(lat_mv *mv){
+// 	lat_objeto *cdn = latC_desapilar(mv);
+// 	lat_objeto *xx = latC_desapilar(mv);
+// 	lat_objeto *yy = latC_desapilar(mv);
+// 	lat_objeto *vent = latC_desapilar(mv);
+// 	char *cadena = latC_checar_cadena(mv, cdn);
+// 	int x = latC_checar_numerico(mv, xx);
+// 	int y = latC_checar_numerico(mv, yy);
+// 	WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, vent);
+// 	mvwprintw(ventana, y, x, "%s", cadena);
+// }
 //static void cur_vw_printw(lat_mv *mv){vw_printw(win, cadena, FUNCION_VAR_ARGS);}
 
 //CURS_REFRESH
@@ -466,10 +489,10 @@ static const lat_CReg libcurses[] = {
 	//CURS_OUTOPTS
 	//CURS_OVERLAY
 	//CURS_PRINTW
-	{"imprimir", cur_imprimir, 1},                  {"printw", cur_imprimir, 1},
-	{"imprimirvent", cur_ventimprimir, 2},          {"wprintw", cur_ventimprimir, 2},
-	{"imprimirmv", cur_mvimprimir, 3},              {"mvprintw", cur_mvimprimir, 3},
-	{"imprimirmvvent", cur_mvventimprimir, 4},      {"mvwprintw", cur_mvventimprimir, 4},
+	{"imprimir", cur_imprimir, FUNCION_VAR_ARGS},   // {"printw", cur_imprimir, 1},
+	// {"imprimirvent", cur_ventimprimir, 2},          {"wprintw", cur_ventimprimir, 2},
+	// {"imprimirmv", cur_mvimprimir, 3},              {"mvprintw", cur_mvimprimir, 3},
+	// {"imprimirmvvent", cur_mvventimprimir, 4},      {"mvwprintw", cur_mvventimprimir, 4},
 
 	//CURS_REFRESH
 	{"refrescar", cur_refrescar, 0},                {"refresh", cur_refrescar, 0},
