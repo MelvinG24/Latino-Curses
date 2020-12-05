@@ -35,23 +35,22 @@
  *                                                                            *
  *  Curses API <https://invisible-island.net/ncurses/man/ncurses.3x.html>     *
  *****************************************************************************/
+
+// Definiciones para el sistema operativo MS-Windows
+#ifndef WIN32_LEAN_AND_MEAN
+    #define WIN32_LEAN_AND_MEAN
+#endif
+
 #if (defined __WIN32__) || (defined _WIN32)
-    // #include "../includes/curses.h"
-	#include "curses.h"
+    #define LATINO_BUILD_AS_DLL
+    #include "curses.h"
 #else
     #include <curses.h>
 #endif
-#include <latino.h>
 
 #define LATINO_LIB
-//
-//#ifdef __APPLE__
-//    #include </usr/local/include/latino.h>
-//    #include </usr/local/include/latobj.h>
-//#else
-//    #include <latino.h>
-//    #include <latobj.h>
-//#endif
+
+#include <latino.h>
 
 #define LIB_CURSES_NAME "curses"
 

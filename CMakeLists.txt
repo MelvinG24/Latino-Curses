@@ -19,7 +19,7 @@ if (WIN32)
     set(CMAKE_INSTALL_PREFIX "C:/Program Files")
     message(STATUS "DIRECTORIO .................... ${CMAKE_INSTALL_PREFIX}")
 
-    set(CURSES_PATH ${CMAKE_CURRENT_SOURCE_DIR}         CACHE FILEPATH "Ruta de librerias de NCurses_WIN32" )
+    set(CURSES_PATH ${CMAKE_CURRENT_SOURCE_DIR}         CACHE FILEPATH "Ruta de librerias de Curses_WIN32" )
     set(LATINO_PATH "${CMAKE_INSTALL_PREFIX}/Latino"    CACHE FILEPATH "Ruta de instalacion de Latino INGLES")
 
     include_directories                                 (${CURSES_PATH}/includes)
@@ -41,7 +41,7 @@ else ()
     endif()
 
     add_library                                         (${PROJECT_NAME} SHARED src/latino-curses.c)
-    target_link_libraries                               (${PROJECT_NAME} liblatino_static libncurses readline)
+    target_link_libraries                               (${PROJECT_NAME} liblatino_static libcurses readline)
 
     INSTALL(TARGETS latino-curses DESTINATION /usr/local/lib)
 endif ()
