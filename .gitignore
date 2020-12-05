@@ -1,16 +1,24 @@
 #ignora directorios
+bin/latino
 build/
-CMakeFiles/
-_CPack_Packages/
 msvc/
+CMakeFiles/
+dist/
+codeblocks/doxygen/
+Testing/
+test/
+_CPack_Packages/
 nbproject/
+test/
+Testing/
 codeblocks/
 codelite/
 mingw/
 visualstudio/
-Testing/
-test/
-.vargrant/
+Img-Orig/
+.vs
+.vscode
+.vagrant/
 .codelite/
 .clang/
 
@@ -35,7 +43,6 @@ prueba.txt
 history.txt
 .history
 .lat_historial
-.DS_Store
 compile_commands.json
 compiling_error.txt
 <scratch>

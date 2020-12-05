@@ -36,7 +36,8 @@
  *  Curses API <https://invisible-island.net/ncurses/man/ncurses.3x.html>     *
  *****************************************************************************/
 #if (defined __WIN32__) || (defined _WIN32)
-    #include "../includes/curses.h"
+    // #include "../includes/curses.h"
+	#include "curses.h"
 #else
     #include <curses.h>
 #endif
@@ -282,6 +283,29 @@ static void cur_tomarcaracter(lat_mv *mv){
 }
 
 //CURS_GETYX
+static void cur_getmaxyx(lat_mv *mv){
+	// int x = (int)latC_checar_numerico(mv, latC_desapilar(mv));
+	// int y = (int)latC_checar_numerico(mv, latC_desapilar(mv));
+	// char const *vent = latC_astring(mv, latC_desapilar(mv));
+	// // WINDOW *ventana;
+	// switch (&vent) {
+	// 	case "PRINCIPAL":
+	// 		// ventana = "stdscr";
+	// 		break;
+	// 	case "HOLA":
+	// 		printf("%s\n", "Hola Mundo");
+	// 		break;
+	// 	case "QTAL":
+	// 		printf("%s\n", "Que tal? todo bien?");
+	// 		break;
+	// 	default:
+	// 		latC_error(mv, "Error en argumento. Ventana no reconocida");
+	// 		break;
+	// }
+	// printf("Mensaje fuera\n");
+	// // WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, vent);
+	
+}
 //CURS_INITSCR
 //static void cur_nuevaterm(lat_mv *mv){newterm(char *, file *, file *);};
 static void cur_iniciarpantalla(lat_mv *mv){initscr();}
@@ -519,10 +543,6 @@ static const lat_CReg libcurses[] = {
 
 
 //****** INVOCACION DE LIBRERIA
-// LATINO_API void latC_abrir_liblatino_curses(lat_mv *mv) {
-//     latC_abrir_liblatino(mv, LIB_CURSES_NAME, libcurses);
-// }
-
 LATINO_API void latC_abrir_liblatino_curses(lat_mv *mv) {
-	latC_abrir_liblatino(mv, LIB_CURSES_NAME, libcurses);
+    latC_abrir_liblatino(mv, LIB_CURSES_NAME, libcurses);
 }
