@@ -240,7 +240,7 @@ static void cur_limpiar(lat_mv *mv){clear();}
 static void cur_startcolor(lat_mv *mv){
 	if (!has_colors()) {
 		printw("Su terminal no soporta colores");
-		getch();
+		// getch();
 	}
 	start_color();
 }
@@ -277,8 +277,8 @@ static void cur_colorpair(lat_mv *mv){
 //CURS_GETCCHAR
 //CURS_GETCH
 static void cur_tomarcaracter(lat_mv *mv){
-	int c = getch();
-	latC_apilar_double(mv, c);
+	// int c = getch();
+	// latC_apilar_double(mv, c);
 }
 
 //CURS_GETYX
@@ -316,7 +316,7 @@ static void cur_nocbreak(lat_mv *mv){nocbreak();}
 static void cur_crudo(lat_mv *mv){raw();};
 static void cur_eco(lat_mv *mv){echo();}
 static void cur_noeco(lat_mv *mv){noecho();}
-static void cur_teclado(lat_mv *mv){keypad(stdscr, TRUE);};
+static void cur_teclado(lat_mv *mv){/*keypad(stdscr, TRUE);*/};
 static void cur_mediotiempo(lat_mv *mv){
 	lat_objeto *mTiempo = latC_desapilar(mv);
 	double tiempo = latC_checar_numerico(mv, mTiempo);
