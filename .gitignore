@@ -31,7 +31,7 @@ Img-Orig/
 *.deb
 *.exe
 *.msi
-Makefile
+# Makefile
 CMakeCache.txt
 CPackConfig.cmake
 CPackSourceConfig.cmake
