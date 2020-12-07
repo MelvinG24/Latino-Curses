@@ -36,17 +36,19 @@
  *  Curses API <https://invisible-island.net/ncurses/man/ncurses.3x.html>     *
  *****************************************************************************/
 
-// Definiciones para el sistema operativo MS-Windows
+
+//****** Definiciones para el sistema operativo MS-Windows
+
 #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN
 #endif
 
+#include <curses.h>
+
 #if (defined __WIN32__) || (defined _WIN32)
     #define LATINO_BUILD_AS_DLL
-    #include "curses.h"
-	#define getch(void)    getchar(void)
-#else
-    #include <curses.h>
+
+    WINDOW       *stdscr;      /* the default screen window */
 #endif
 
 #define LATINO_LIB
@@ -55,7 +57,8 @@
 
 #define LIB_CURSES_NAME "curses"
 
-/* Definiciones */
+
+//****** DEFINICIONES
 
 //Atributos
 #define NORMAL     A_NORMAL
@@ -85,9 +88,6 @@
 #define BLANCO     COLOR_WHITE
 
 #define atributoson(r) attron(r)
-
-
-static void cur_(lat_mv *mv){}
 
 
 //****** LISTA DE FUNCIONES
@@ -278,8 +278,8 @@ static void cur_colorpair(lat_mv *mv){
 //CURS_GETCCHAR
 //CURS_GETCH
 static void cur_tomarcaracter(lat_mv *mv){
-	// int c = getch();
-	// latC_apilar_double(mv, c);
+    int c = getch();
+    latC_apilar_double(mv, c);
 }
 
 //CURS_GETYX
@@ -316,10 +316,9 @@ static void cur_nocbreak(lat_mv *mv){nocbreak();}
 static void cur_crudo(lat_mv *mv){raw();};
 static void cur_eco(lat_mv *mv){echo();}
 static void cur_noeco(lat_mv *mv){noecho();}
-static void cur_teclado(lat_mv *mv){/*keypad(stdscr, TRUE);*/};
+static void cur_teclado(lat_mv *mv){keypad(stdscr, TRUE);};
 static void cur_mediotiempo(lat_mv *mv){
-    lat_objeto *mTiempo = latC_desapilar(mv);
-    double tiempo = latC_checar_numerico(mv, mTiempo);
+    int tiempo = (int)latC_checar_numerico(mv, latC_desapilar(mv));
     halfdelay(tiempo);
 };
 
@@ -515,8 +514,8 @@ static const lat_CReg libcurses[] = {
     // {"imprimirmvvent", cur_mvventimprimir, 4},      {"mvwprintw", cur_mvventimprimir, 4},
 
     //CURS_REFRESH
-    {"refrescar", cur_refrescar, 0},                {"refresh", cur_refrescar, 0},
-    {"refrescarvent", cur_refrescarvent, 1},        {"wrefresh", cur_refrescarvent, 1},
+    {"actualizar", cur_refrescar, 0},                {"refresh", cur_refrescar, 0},
+    {"actualizarvent", cur_refrescarvent, 1},        {"wrefresh", cur_refrescarvent, 1},
 
     //CURS_SLK
     //CURS_TERMATTRS
