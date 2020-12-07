@@ -47,8 +47,12 @@
 
 #if (defined __WIN32__) || (defined _WIN32)
     #define LATINO_BUILD_AS_DLL
-
-    WINDOW       *stdscr;      /* the default screen window */
+    #ifndef PDCEX
+        #define PDCEX __declspec(dllimport)
+    #endif
+    #ifndef stdscr
+        PDCEX   WINDOW       *stdscr;
+    #endif
 #endif
 
 #define LATINO_LIB

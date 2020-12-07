@@ -432,7 +432,7 @@ typedef struct
  *  External Variables
  *
  */
-
+#define PDC_DLL_BUILD TRUE
 #ifdef PDC_DLL_BUILD
 # ifdef CURSES_LIBRARY
 #  define PDCEX __declspec(dllexport) extern
