@@ -1,37 +1,57 @@
+// incluir ("curses")
+
+// curses.iniciarpantalla()
+
+
+// h=10
+// w=20
+// y,x=10,10
+
+// vent1=curses.ventana(h,w,y,x)
+// curses.refrescar()
+
+// l,r="|","|"
+// t,b="-","_"
+// tlc,trc,blc,brc = "<",">","^","^"
+
+// //curses.caja(vent1,103,104)
+// curses.bordevent(vent1,l,r,t,b,tlc,trc,blc,brc)
+// curses.mvwprintw(vent1,2,5,"Ventana 1")
+// curses.refrescarvent(vent1)
+
+// //colores="A_BLINK|A_REVERSE|A_BOLD"
+// curses.attron("A_BLINK")
+// curses.printw("Prueva en Latino")
+// curses.attroff("PARPADEO|AL_REVES|NEGRITAS")
+
+
+
+// /*
+// c=curses.getch()
+// curses.printw(c)
+// */
+
+// curses.leer()
+
+// curses.finpantalla()
+
+
+//-----------------------------------------------------------------
+
+
 incluir ("curses")
 
-curses.iniciarpantalla()
+stdscr = curses.iniciarpantalla() //El comando curses.iniciarpantalla() inicia curses y tambien devuelve el valor para definir la pantalla estandar "stdscr"
 
+curses.crudo() 
+curses.teclado(stdscr, verdadero) //El comando curses.teclado() activa la opcion para capturar teclas especiales como F1, F2, F3... flecha_Izq., flecha_Der., ... entre otros
+curses.noeco()
 
-h=10
-w=20
-y,x=10,10
+curses.imprimir("Digite cualquier caracter para mostrarlo en negritas\n")
+ch = curses.leer()
+curses.imprimir(ch)
 
-vent1=curses.ventana(h,w,y,x)
-curses.refrescar()
-
-l,r="|","|"
-t,b="-","_"
-tlc,trc,blc,brc = "<",">","^","^"
-
-//curses.caja(vent1,103,104)
-curses.bordevent(vent1,l,r,t,b,tlc,trc,blc,brc)
-curses.mvwprintw(vent1,2,5,"Ventana 1")
-curses.refrescarvent(vent1)
-
-//colores="A_BLINK|A_REVERSE|A_BOLD"
-curses.attron("A_BLINK")
-curses.printw("Prueva en Latino")
-curses.attroff("PARPADEO|AL_REVES|NEGRITAS")
-
-
-
-/*
-c=curses.getch()
-curses.printw(c)
-*/
-
+curses.actualizar()
 curses.leer()
 
 curses.finpantalla()
-

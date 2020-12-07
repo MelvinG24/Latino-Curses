@@ -37,13 +37,15 @@
  *****************************************************************************/
 
 
+//****** Cabezera de libreria curses
+
+#include <curses.h>
+
 //****** Definiciones para el sistema operativo MS-Windows
 
 #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN
 #endif
-
-#include <curses.h>
 
 #if (defined __WIN32__) || (defined _WIN32)
     #define LATINO_BUILD_AS_DLL
@@ -55,12 +57,14 @@
     #endif
 #endif
 
+
+//****** Definiciones de libreria
+
 #define LATINO_LIB
 
 #include <latino.h>
 
 #define LIB_CURSES_NAME "curses"
-
 
 //****** DEFINICIONES
 
@@ -283,7 +287,8 @@ static void cur_colorpair(lat_mv *mv){
 //CURS_GETCH
 static void cur_tomarcaracter(lat_mv *mv){
     int c = getch();
-    latC_apilar_double(mv, c);
+    lat_objeto *tmp = (int)latC_crear_numerico(mv, c);
+    latC_apilar(mv, tmp);
 }
 
 //CURS_GETYX
@@ -311,7 +316,11 @@ static void cur_getmaxyx(lat_mv *mv){
 }
 //CURS_INITSCR
 //static void cur_nuevaterm(lat_mv *mv){newterm(char *, file *, file *);};
-static void cur_iniciarpantalla(lat_mv *mv){initscr();}
+static void cur_iniciarpantalla(lat_mv *mv){
+    initscr();
+    lat_objeto *vent = latC_crear_cdato(mv, stdscr);
+    latC_apilar(mv, vent);
+}
 static void cur_salirpantalla(lat_mv *mv){endwin();}
 
 //CURS_INOPTS
@@ -320,7 +329,11 @@ static void cur_nocbreak(lat_mv *mv){nocbreak();}
 static void cur_crudo(lat_mv *mv){raw();};
 static void cur_eco(lat_mv *mv){echo();}
 static void cur_noeco(lat_mv *mv){noecho();}
-static void cur_teclado(lat_mv *mv){keypad(stdscr, TRUE);};
+static void cur_teclado(lat_mv *mv){
+    bool *b = latC_checar_logico(mv, latC_desapilar(mv));
+    WINDOW *ventana = (WINDOW *)latC_checar_cptr(mv, latC_desapilar(mv));
+    keypad(ventana, b);
+};
 static void cur_mediotiempo(lat_mv *mv){
     int tiempo = (int)latC_checar_numerico(mv, latC_desapilar(mv));
     halfdelay(tiempo);
@@ -448,10 +461,18 @@ static void cur_ventana(lat_mv *mv){
 
 //****** FIN DE LAS FUNCIONES
 
+//****** LISTA DE FUNCIONES_COMANDOS
+
+static void cmd_tcl_funcion(lat_mv *mv) {
+    int o = KEY_F(latC_checar_numerico(mv, latC_desapilar(mv)));
+    lat_objeto *tmp = o;
+    latC_apilar(mv, tmp);
+}
 
 
 
-//****** LISTA DE COMANDOS
+//****** LISTA DE CURSES
+
 static const lat_CReg libcurses[] = {
     //CURS_ADD_WCH
     //CURS_ADDCH
@@ -533,10 +554,10 @@ static const lat_CReg libcurses[] = {
     //DEFINE_KEY
     //NEW_PAIR
 
+    {"tcl_f", cmd_tcl_funcion, 1},
+
     {NULL, NULL, 0}
 };
-
-//****** FIN DE COMANDOS
 
 
 
