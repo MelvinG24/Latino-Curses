@@ -37,9 +37,11 @@
  *****************************************************************************/
 
 
+
 //****** Cabezera de libreria curses
 
 #include <curses.h>
+
 
 //****** Definiciones para el sistema operativo MS-Windows
 
@@ -58,6 +60,7 @@
 #endif
 
 
+
 //****** Definiciones de libreria
 
 #define LATINO_LIB
@@ -65,6 +68,10 @@
 #include <latino.h>
 
 #define LIB_CURSES_NAME "curses"
+
+
+
+
 
 //****** DEFINICIONES
 
@@ -96,6 +103,8 @@
 #define BLANCO     COLOR_WHITE
 
 #define atributoson(r) attron(r)
+
+
 
 
 //****** LISTA DE FUNCIONES
@@ -427,22 +436,22 @@ static void cur_refrescarvent(lat_mv *mv){
 
 //CURS_SLK
 //CURS_TERMATTRS
-static void cur_velocidadtransmision(lat_mv *mv){baudrate();}
-static void cur_borrarchar(lat_mv *mv){erasechar();}
-//static void cur_erasewchar(lat_mv *mv){erasewchar(char * ch);}
-static void cur_has_ic(lat_mv *mv){has_ic();}
-static void cur_has_il(lat_mv *mv){has_il();}
-static void cur_killchar(lat_mv *mv){killchar();}
-//static void cur_killwchar(lat_mv *mv){killwchar(char * ch);}
-static void cur_longname(lat_mv *mv){longname();}
-//static void cur_term_attrs(lat_mv *mv){term_attrs();}
-static void cur_termattrs(lat_mv *mv){termattrs();}
-static void cur_termname(lat_mv *mv){termname();}
+static void cur_velocidadtransmision(lat_mv *mv) {baudrate();}
+static void cur_borrarchar(lat_mv *mv) {erasechar();}
+//static void cur_erasewchar(lat_mv *mv) {erasewchar(char * ch);}
+static void cur_has_ic(lat_mv *mv) {has_ic();}
+static void cur_has_il(lat_mv *mv) {has_il();}
+static void cur_killchar(lat_mv *mv) {killchar();}
+//static void cur_killwchar(lat_mv *mv) {killwchar(char * ch);}
+static void cur_longname(lat_mv *mv) {longname();}
+//static void cur_term_attrs(lat_mv *mv) {term_attrs();}
+static void cur_termattrs(lat_mv *mv) {termattrs();}
+static void cur_termname(lat_mv *mv) {termname();}
 
 //CURS_TERMINFO
 //CURS_UTIL
 //CURS_WINDOW
-static void cur_ventana(lat_mv *mv){
+static void cur_ventana(lat_mv *mv) {
     lat_objeto *cxx = latC_desapilar(mv);
     lat_objeto *cyy = latC_desapilar(mv);
     lat_objeto *wancho = latC_desapilar(mv);
@@ -463,11 +472,13 @@ static void cur_ventana(lat_mv *mv){
 
 //****** LISTA DE FUNCIONES_COMANDOS
 
-static void cmd_tcl_funcion(lat_mv *mv) {
-    int o = KEY_F(latC_checar_numerico(mv, latC_desapilar(mv)));
-    lat_objeto *tmp = o;
-    latC_apilar(mv, tmp);
+static void cur_tcl_funcion(lat_mv *mv) {
+    //Al declarar la variable N como un puntero cambiaba el valor
+    int n = (int)latC_checar_numerico(mv, latC_desapilar(mv));
+    int c = KEY_F(n);
+    latC_apilar_int(mv, c);
 }
+
 
 
 
@@ -554,10 +565,11 @@ static const lat_CReg libcurses[] = {
     //DEFINE_KEY
     //NEW_PAIR
 
-    {"tcl_f", cmd_tcl_funcion, 1},
+    {"TCL_F", cur_tcl_funcion, 1},                  {"KEY_F", cur_tcl_funcion, 1},
 
     {NULL, NULL, 0}
 };
+
 
 
 
