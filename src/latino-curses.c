@@ -475,8 +475,8 @@ static void cur_ventana(lat_mv *mv) {
 static void cur_tcl_funcion(lat_mv *mv) {
     //Al declarar la variable N como un puntero cambiaba el valor
     int n = (int)latC_checar_numerico(mv, latC_desapilar(mv));
-    int c = KEY_F(n);
-    latC_apilar_int(mv, c);
+    double c = KEY_F(n);
+    latC_apilar_double(mv, c);
 }
 
 
@@ -488,8 +488,8 @@ static const lat_CReg libcurses[] = {
     //CURS_ADD_WCH
     //CURS_ADDCH
     //CURS_ATTR
-    {"atrion", cur_attron, 1},                      {"attron", cur_attron, 1},
-    {"atrioff", cur_attroff, 1},                    {"attroff", cur_attroff, 1},
+    {"atrion", cur_attron, FUNCION_VAR_ARGS},       {"attron", cur_attron, FUNCION_VAR_ARGS},
+    {"atrioff", cur_attroff, FUNCION_VAR_ARGS},     {"attroff", cur_attroff, FUNCION_VAR_ARGS},
 
     //CURS_BEEP
     {"beep", cur_beep, 0},
